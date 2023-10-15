@@ -32,19 +32,21 @@ function handleClick(event) {
 
     if (galleryItem) {
         const instance = basicLightbox.create(`
-            <div class="modal">
+            <div>
                 <img src="${galleryItem.original}" alt="${galleryItem.description}" />
             </div>
         `,
-        {
-            onShow: (instance) => {
-                document.body.style.overflow = 'hidden';
-            },
-            onClose: (instance) => {
-                document.body.style.overflow = 'auto';
-            }
-        });
+        {onClose: (instance) => {
+        window.removeEventListener('keydown', onCloseHandler)
+        }});
 
+        window.addEventListener('keydown', onCloseHandler);
+        
+        function onCloseHandler(event) {
+            if (event.key === 'Escape') {
+                instance.close();
+            }};
+        
         instance.show();
     }
 };
