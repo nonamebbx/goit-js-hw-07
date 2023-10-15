@@ -32,23 +32,19 @@ function handleClick(event) {
 
     if (galleryItem) {
         const instance = basicLightbox.create(`
-            <div>
+            <div class="modal">
                 <img src="${galleryItem.original}" alt="${galleryItem.description}" />
             </div>
         `,
-        {onClose: (instance) => {
-        window.removeEventListener('keydown', onCloseHandler)
-        }});
+        {
+            onShow: (instance) => {
+                document.body.style.overflow = 'hidden';
+            },
+            onClose: (instance) => {
+                document.body.style.overflow = 'auto';
+            }
+        });
 
-        window.addEventListener('keydown', onCloseHandler);
-        
-        function onCloseHandler(event) {
-            if (event.key === 'Escape') {
-                instance.close();
-            }};
-        
         instance.show();
-        const lightboxElement = document.querySelector('.basicLightbox');
-        lightboxElement.style.zIndex = '9999';
     }
 };
