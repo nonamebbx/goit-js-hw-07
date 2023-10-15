@@ -48,5 +48,7 @@ function handleClick(event) {
             }};
         
         instance.show();
+        const lightboxElement = document.querySelector('.basicLightbox');
+        lightboxElement.style.zIndex = '9999';
     }
 };
